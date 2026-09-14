@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from 'react-use';
 import Search from '../components/Search'
 import Spinner from '../components/Spinner';
@@ -16,7 +17,10 @@ const App = () => {
   // ========================
   // useState
   // ========================
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get('q') || ''
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [animeList, setAnimeList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +36,23 @@ const App = () => {
 
 
   useDebounce(() => setdebouncedSearchTerm(searchTerm.toLocaleLowerCase()), 750, [searchTerm]);
+
+  useEffect(() => {
+    const currentQuery = searchParams.get('q') || '';
+    const newQuery = debouncedSearchTerm.trim();
+
+    if (currentQuery === newQuery) return;
+
+    const newParams = new URLSearchParams(searchParams);
+
+    if (newQuery) {
+      newParams.set('q', newQuery);
+    } else {
+      newParams.delete('q');
+    }
+
+    setSearchParams(newParams, { replace: true });
+  }, [debouncedSearchTerm]);
 
 
   // ========================
