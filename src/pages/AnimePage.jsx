@@ -46,7 +46,7 @@ const AnimePage = () => {
       return (
       <main className="anime-page">
         <div className="anime-container h-screen">
-          <p>Loading anime information...</p>
+          <p className='text-white'>Loading anime information...</p>
           <Spinner />
         </div>
       </main>
