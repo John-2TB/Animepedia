@@ -44,9 +44,12 @@ const AnimePage = () => {
 
     if (isLoading) {
       return (
-      <div className='flex flex-col justify-center items-center'>
-        <Spinner />
-      </div>
+      <main className="anime-page">
+        <div className="anime-container h-screen">
+          <p>Loading anime information...</p>
+          <Spinner />
+        </div>
+      </main>
     )
     }
 
@@ -81,28 +84,6 @@ const AnimePage = () => {
       <Helmet>
         <title>{anime.title} - Animepedia</title>
 
-        <script type="application/ld+json">
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'TVSeries',
-            name: anime.title_english || anime.title,
-            description: anime.synopsis || '',
-            image: anime.images?.webp?.large_image_url ||
-              anime.images?.webp?.image_url,
-            numberOfEpisodes: anime.episodes || undefined,
-            genre: anime.genres?.map((genre) => genre.name) || [],
-            datePublished: anime.aired?.from || undefined,
-            aggregateRating: anime.score
-              ? {
-                  '@type': 'AggregateRating',
-                  ratingValue: anime.score,
-                  bestRating: 10,
-                  worstRating: 1,
-                }
-              : undefined,
-          })}
-        </script>
-
         <meta
           name="description"
           content={
@@ -131,18 +112,21 @@ const AnimePage = () => {
         />
 
         <meta
-          property="og:type"
-          content="website"
-        />
-
-        <meta
           property="og:url"
           content={`https://react-vert-theta.vercel.app/anime/${anime.mal_id}`}
         />
 
         <meta
+          property="og:type"
+          content="website"
+        />
+
+        <meta
           property="og:image"
-          content={anime.images?.webp?.large_image_url || anime.images?.webp?.image_url}
+          content={
+            anime.images?.webp?.large_image_url ||
+            anime.images?.webp?.image_url
+          }
         />
 
         <meta
@@ -165,8 +149,34 @@ const AnimePage = () => {
 
         <meta
           name="twitter:image"
-          content={anime.images?.webp?.large_image_url || anime.images?.webp?.image_url}
+          content={
+            anime.images?.webp?.large_image_url ||
+            anime.images?.webp?.image_url
+          }
         />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'TVSeries',
+            name: anime.title_english || anime.title,
+            description: anime.synopsis || '',
+            image:
+              anime.images?.webp?.large_image_url ||
+              anime.images?.webp?.image_url,
+            numberOfEpisodes: anime.episodes || undefined,
+            genre: anime.genres?.map((genre) => genre.name) || [],
+            datePublished: anime.aired?.from || undefined,
+            aggregateRating: anime.score
+              ? {
+                  '@type': 'AggregateRating',
+                  ratingValue: anime.score,
+                  bestRating: 10,
+                  worstRating: 1,
+                }
+              : undefined,
+          })}
+        </script>
       </Helmet>
 
 
