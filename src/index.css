@@ -103,7 +103,7 @@
   }
 
   .anime-card {
-    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10 flex flex-col justify-between cursor-pointer;
+    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10 flex flex-col justify-between;
 
     & img {
       @apply rounded-lg h-auto w-full;
@@ -162,19 +162,15 @@
     }
   }
 
-  .modal{
-   @apply w-full h-screen overflow-y-auto bg-primary/30 backdrop-blur-2xl fixed z-10 top-0 left-0 flex flex-col items-center;
-
-   & .remove-modal{
-    @apply text-red-500 absolute top-6 right-4 md:right-30 text-3xl cursor-pointer
-   }
+  .anime-page{
+   @apply overflow-y-auto bg-primary flex flex-col items-center;
 
    & .anime-container{
-    @apply flex flex-col shadow-lg shadow-light-200/50 bg-dark-100 rounded-2xl px-8 py-12 my-12 w-[85%] md:w-[65%] h-auto
+    @apply w-full max-w-7xl flex flex-col bg-dark-100 px-8 py-12 h-auto
    }
 
    & .media-display{
-    @apply grid grid-flow-row grid-cols-1 md:grid-flow-col md:grid-cols-12 gap-2 items-center w-full;
+    @apply grid grid-cols-1 md:grid-cols-[320px_minmax(0,1fr)] gap-5 items-center w-full;
 
     & img{
       @apply rounded-lg

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { useDebounce } from 'react-use';
-import Search from './components/Search'
-import Spinner from './components/Spinner';
-import AnimeCard from './components/AnimeCard';
-import { getTrendingAnimes, updateSearchCount } from './appwrite';
-import Pagination from './components/Pagination';
-import AnimeModal from './components/AnimeModal';
-import Filter from './components/Filter';
+import Search from '../components/Search'
+import Spinner from '../components/Spinner';
+import AnimeCard from '../components/AnimeCard';
+import { getTrendingAnimes, updateSearchCount } from '../appwrite';
+import Pagination from '../components/Pagination';
+import AnimePage from './AnimePage';
+import Filter from '../components/Filter';
 
 const App = () => {
   const API_URL = 'https://api.tenrai.org/v1';
@@ -18,14 +19,14 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [animeList, setAnimeList] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setdebouncedSearchTerm] = useState('');
   const [trendingAnimes, settrendingAnimes] = useState([]);
   const [trendingAnimesErrorMessage, settrendingAnimesErrorMessage] = useState('');
   const [isTrendingAnimesLoading, setisTrendingAnimesLoading] = useState(false);
-  const [page, setpage] = useState(1);
+  const [page, setPage] = useState(1);
   const [hasNextPage, sethasNextPage] = useState(false);
-  const [selectedAnime, setselectedAnime] = useState(null);
+  const [selectedAnime, setSelectedAnime] = useState(null);
   const [selectedGenre, setselectedGenre] = useState('');
 
 
@@ -37,7 +38,7 @@ const App = () => {
   // Functions
   // ========================
   const fetchTopAnimes = async (query= '') => {
-    setisLoading(true);
+    setIsLoading(true);
     setErrorMessage('');
 
     try {
@@ -48,7 +49,7 @@ const App = () => {
 
       if(!response.ok) {
         if(response.status === 504) {
-          throw new Error('Jikan is temporarily unavailable. Please try again.')
+          throw new Error('Tenrai is temporarily unavailable. Please try again.')
         }
         throw new Error(`HTTP Error Status: ${response.status}`)
       }
@@ -72,7 +73,7 @@ const App = () => {
       console.error(`Error fetching animes: ${error}`);
       setErrorMessage(`Error fetching data. Please try again later`);
     } finally {
-      setisLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -106,7 +107,7 @@ const App = () => {
 
   // Reset pagination to 1 useEffect
   useEffect(() => {
-    setpage(1)
+    setPage(1)
   }, [debouncedSearchTerm, selectedGenre]);
 
   // Reset selectedGenre to all when user start typing
@@ -119,10 +120,6 @@ const App = () => {
     loadTrendingMovies();
   }, []);
 
-  // Stop scrolling body
-  useEffect(() => {
-    {selectedAnime ? document.body.style.overflowY = 'hidden' : document.body.style.overflowY = ''}
-  }, [selectedAnime]);
   
 
   return (
@@ -172,15 +169,13 @@ const App = () => {
           (
             <ul>
               {safeAnimeList.map((anime) => (
-                <AnimeCard key={anime.mal_id} anime={anime} onSelect={setselectedAnime}/>
+                <AnimeCard key={anime.mal_id} anime={anime} onSelect={setSelectedAnime}/>
                 
               ))}
             </ul>
           )}
 
-          {selectedAnime && (<AnimeModal anime={selectedAnime} onSelect={setselectedAnime}/>)}
-
-          <Pagination page={page} hasNextPage={hasNextPage} setPage={setpage}/>
+          <Pagination page={page} hasNextPage={hasNextPage} setPage={setPage}/>
         </section>
       </div>
     </main>
