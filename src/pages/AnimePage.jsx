@@ -125,7 +125,8 @@ const AnimePage = () => {
           property="og:image"
           content={
             anime.images?.webp?.large_image_url ||
-            anime.images?.webp?.image_url
+            anime.images?.webp?.image_url ||
+            anime.images?.jpg?.large_image_url
           }
         />
 
@@ -151,7 +152,8 @@ const AnimePage = () => {
           name="twitter:image"
           content={
             anime.images?.webp?.large_image_url ||
-            anime.images?.webp?.image_url
+            anime.images?.webp?.image_url ||
+            anime.images?.jpg?.large_image_url
           }
         />
 
@@ -163,18 +165,22 @@ const AnimePage = () => {
             description: anime.synopsis || '',
             image:
               anime.images?.webp?.large_image_url ||
-              anime.images?.webp?.image_url,
+              anime.images?.webp?.image_url ||
+              anime.images?.jpg?.large_image_url,
             numberOfEpisodes: anime.episodes || undefined,
             genre: anime.genres?.map((genre) => genre.name) || [],
             datePublished: anime.aired?.from || undefined,
-            aggregateRating: anime.score
-              ? {
-                  '@type': 'AggregateRating',
-                  ratingValue: anime.score,
-                  bestRating: 10,
-                  worstRating: 1,
-                }
-              : undefined,
+
+            aggregateRating:
+              anime.score && anime.scored_by
+                ? {
+                    '@type': 'AggregateRating',
+                    ratingValue: anime.score,
+                    ratingCount: anime.scored_by,
+                    bestRating: 10,
+                    worstRating: 1,
+                  }
+                : undefined,
           })}
         </script>
       </Helmet>
