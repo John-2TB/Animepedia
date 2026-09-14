@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Pagination = ({ page, hasNextPage, setPage }) => {
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 1024,
+      behavior: 'smooth'
+    });
+  }, [page])
+  
+
   return (
     <div className='pagination'>
       <div>
