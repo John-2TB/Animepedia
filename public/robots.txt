@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://react-vert-theta.vercel.app/api/sitemap
+Sitemap: https://react-vert-theta.vercel.app/sitemap.xml
