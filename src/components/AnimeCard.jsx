@@ -28,7 +28,7 @@ const AnimeCard = ({ anime, onSelect }) => {
         </div>
       </div>
 
-      <Link to={`/anime/${anime.mal_id}`} onClick={(e) => e.stopPropagation()} className= "underline decoration-dotted text-[#a595ff] hover:text-[#8f7bff] font-semibold cursor-pointer">
+      <Link to={`/anime/${anime.mal_id}`} className= "underline decoration-dotted text-[#a595ff] hover:text-[#8f7bff] font-semibold cursor-pointer">
         View Details
       </Link>
 
