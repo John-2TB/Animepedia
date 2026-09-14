@@ -16,7 +16,7 @@ const AnimePage = () => {
 
       const fetchAnime = async() => {
         try {
-          const response = await fetch(`https://api.tenrai.org/v1/anime/${id}`)
+          const response = await fetch(`/api/anime/${id}`)
 
           if (!response.ok) {
             setIsLoading(false);
