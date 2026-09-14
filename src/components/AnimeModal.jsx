@@ -32,7 +32,7 @@ const AnimeModal = ({ anime, onSelect }) => {
       <div className='anime-container'>
         
         {/* Title */}
-        <div className='flex flex-col items-start md:flex-row md:items-start'>
+        <div className='flex flex-col items-start md:flex-row md:items-center md:justify-between'>
           <h2>{anime.title_english || anime.title}</h2>
 
           <div className='flex justify-center items-center bg-light-100/20 px-4 py-2 rounded-lg'>
