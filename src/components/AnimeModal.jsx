@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
-import { X } from 'lucide-react'
+import React, { useEffect } from 'react';
+import { X } from 'lucide-react';
+import AnimeDescription from './AnimeDescription';
 
 const AnimeModal = ({ anime, onSelect }) => {
   // console.log(anime)
@@ -31,13 +32,14 @@ const AnimeModal = ({ anime, onSelect }) => {
       <div className='anime-container'>
         
         {/* Title */}
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-col items-start md:flex-row md:items-start'>
           <h2>{anime.title_english || anime.title}</h2>
 
           <div className='flex justify-center items-center bg-light-100/20 px-4 py-2 rounded-lg'>
             <img src="./Rating.svg" alt="Rating star" />
             <p className='text-light-100'><span className='text-light-100 text-lg font-bold ml-2'>{anime.score ? anime.score : (<p className='text-white text-lg'>N/A</p>)}</span>/10</p>
           </div>
+
         </div>
 
         {/* Details */}
@@ -48,10 +50,10 @@ const AnimeModal = ({ anime, onSelect }) => {
         </div>
 
         {/* Image and trailer */}
-        <div className='media-display'>
+        <div className='media-display mb-6'>
 
           {/* Image */}
-          <div className='w-full h-auto col-span-4'>
+          <div className='w-full h-auto md:col-span-4 flex justify-center md:justify-start'>
             {
               anime.images.webp.image_url ? 
               (<img src={anime.images.webp.image_url} alt='Poster image' />) : 
@@ -62,10 +64,10 @@ const AnimeModal = ({ anime, onSelect }) => {
           </div>
 
           {/* Trailer */}
-          <div className='rounded-lg col-span-8 w-full h-full'>
+          <div className='rounded-lg md:col-span-8 w-full md:h-full'>
             {
               anime.trailer.embed_url ? 
-              (<iframe className='w-full h-full object-cover' src={anime.trailer.embed_url} />) : 
+              (<iframe className='w-full aspect-video h-auto md:h-full object-cover' src={anime.trailer.embed_url} />) : 
               anime.trailer.url ? 
               (<a href={anime.trailer.url} target='_blank'>
                 <img src={anime.trailer.images.image_url} className='w-full h-full object-cover' />
@@ -99,9 +101,11 @@ const AnimeModal = ({ anime, onSelect }) => {
           <div className='info-row'>
             <p className='title'>Overview</p>
 
-            <p className='text-white'>
+            <AnimeDescription text={anime.synopsis} />
+
+            {/* <p className='text-white'>
               {anime.synopsis || 'N/A'}
-            </p>
+            </p> */}
           </div>
 
           {/* Release Date */}

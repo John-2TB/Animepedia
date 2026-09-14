@@ -166,7 +166,7 @@
    @apply w-full h-screen overflow-y-auto bg-primary/30 backdrop-blur-2xl fixed z-10 top-0 left-0 flex flex-col items-center;
 
    & .remove-modal{
-    @apply text-red-500 absolute top-8 sm:top-2 lg:right-32 sm:right-2 right-22 text-3xl pr-4 cursor-pointer
+    @apply text-red-500 absolute top-6 right-4 md:right-30 text-3xl cursor-pointer
    }
 
    & .anime-container{
@@ -174,7 +174,7 @@
    }
 
    & .media-display{
-    @apply grid grid-flow-col grid-cols-12 gap-2 items-stretch ;
+    @apply grid grid-flow-row grid-cols-1 md:grid-flow-col md:grid-cols-12 gap-2 items-center w-full;
 
     & img{
       @apply rounded-lg
@@ -189,14 +189,14 @@
     @apply flex flex-col gap-5;
 
     & .info-row{
-      @apply grid grid-cols-[120px_1fr] gap-6 items-start;
+      @apply grid md:grid-cols-[120px_1fr] md:gap-6 items-start;
     }
 
     & div{
-      @apply flex items-start mt-4 gap-8;
+      @apply flex items-start md:mt-4 md:gap-8;
 
       & .title{
-        @apply text-lg text-light-200 bg-transparent
+        @apply text-xl md:text-lg text-light-200 bg-transparent
       }
 
       & p{

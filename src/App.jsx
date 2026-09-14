@@ -140,7 +140,7 @@ const App = () => {
 
         
         <section className='trending'>
-          <h2>Trending Animes</h2>
+          <h2 className='pb-8'>Trending Animes</h2>
 
           <ul>
             {isTrendingAnimesLoading ? (<Spinner />) : trendingAnimesErrorMessage ? (<p className='text-red-500 mt-10'>{trendingAnimesErrorMessage}</p>) : (
