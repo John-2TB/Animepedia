@@ -44,13 +44,13 @@ const AnimePage = () => {
 
     if (isLoading) {
       return (
-      <main className="anime-page">
-        <div className="anime-container h-screen">
-          <p className='text-white'>Loading anime information...</p>
-          <Spinner />
-        </div>
-      </main>
-    )
+        <main className="anime-page">
+          <div className="anime-container h-screen">
+            <p className='text-white'>Loading anime information...</p>
+            <Spinner />
+          </div>
+        </main>
+      )
     }
 
     if (!anime) {

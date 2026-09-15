@@ -163,7 +163,7 @@
   }
 
   .anime-page{
-   @apply overflow-y-auto bg-primary flex flex-col items-center;
+   @apply overflow-y-auto bg-dark-100 flex flex-col items-center;
 
    & .anime-container{
     @apply w-full max-w-7xl flex flex-col bg-dark-100 px-8 py-12 h-auto

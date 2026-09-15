@@ -58,41 +58,49 @@ const App = () => {
   // ========================
   // Functions
   // ========================
-  const fetchTopAnimes = async (query= '') => {
+  const fetchTopAnimes = async (query = '') => {
     setIsLoading(true);
     setErrorMessage('');
 
     try {
-      const response = query ? 
-      await fetch(`${API_URL}/anime?q=${encodeURIComponent(query)}&page=${page}`) : selectedGenre ? 
-        await fetch(`${API_URL}/anime${selectedGenre ? `?genres=${selectedGenre}&page=${page}` : `?page=${page}`}`) :
-        await fetch(`${API_URL}/top/anime?page=${page}`)
+      let url;
 
-      if(!response.ok) {
-        if(response.status === 504) {
-          throw new Error('Tenrai is temporarily unavailable. Please try again.')
+      if (query) {
+        url = `/api/anime-list?q=${encodeURIComponent(query)}&page=${page}`;
+      } else if (selectedGenre) {
+        url = `/api/anime-list?genres=${encodeURIComponent(selectedGenre)}&page=${page}`;
+      } else {
+        url = `/api/anime-list?page=${page}`;
+      }
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        if (response.status === 504) {
+          throw new Error('Tenrai is temporarily unavailable. Please try again.');
         }
-        throw new Error(`HTTP Error Status: ${response.status}`)
+
+        throw new Error(`HTTP Error Status: ${response.status}`);
       }
 
       const data = await response.json();
 
-      if(!data.data) {
-        setErrorMessage(`${'Failed to fetch animes'}`);
+      if (!data.data) {
+        setErrorMessage('Failed to fetch animes');
         setAnimeList([]);
         return;
       }
 
-      sethasNextPage(data.pagination.has_next_page || false);
-
+      sethasNextPage(data.pagination?.has_next_page || false);
       setAnimeList(data.data || []);
 
-      if(query && data.data.length > 0) {
-        await updateSearchCount(query, data.data[0]); 
+      if (query && data.data.length > 0) {
+        await updateSearchCount(query, data.data[0]);
       }
+
     } catch (error) {
       console.error(`Error fetching animes: ${error}`);
-      setErrorMessage(`Error fetching data. Please try again later`);
+      setErrorMessage('Error fetching data. Please try again later');
     } finally {
       setIsLoading(false);
     }
